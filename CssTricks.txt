@@ -1,0 +1,227 @@
+background-image: linear-gradient(to right bottom, #color1, #color2),
+url("../img/hero.jpg");
+clip-path:polygon(x y ,x y ,x y)
+to specify root font size we should use html
+html{
+    font-size:16px
+}
+================================
+SASS
+=====
+{{{variables}}}
+------->>>
+$varName: value
+
+{{{colors}}}
+====>>>>
+colorsFunction
+---------->>>>>
+darken($colorval, 10%)
+lighten($colorVal,10%)
+
+{{{Mixins}}}
+---->>>>
+@mixin mixinName{
+    &::after{
+        content:'';
+        clear:both;
+        display:table;
+    }
+}
+@mixin mixinName($arg){
+    &::after{
+        content:'';
+        clear:both;
+        display:table;
+        color:$arg
+    }
+}
+in any code block use mixin like this:
+@include mixinName($arg);
+# mixin copy its content in ablock of code
+
+{{functions}}
+==============
+@function divide($a ,$b){
+    return $a/$b
+}
+margin: devide(60/2) * 1px
+
+
+{{extend}}
+===========
+%btn-placeholder{
+    padding:20px 15px;
+    margin:10px;
+    display:block;
+}
+.btn-main{
+    @extend %btn-placeholder;
+    &:hover{
+        #code
+    }
+}
+
+[HINT]
+==>>>
+extend is different than mixin it is not copy code into block but it makes an 
+class for these blocks use it so you don't repeat your self
+
+css selector by attributes
+==================
+[class^="col-"] # all classes begins with col-
+[class$="col-"] # all classes ends with col-
+[class*="col-"] # all classes contain col-
+[class^="col-"] {
+    your style here
+}
+=========================
+box-decoration-break:clone
+==> we use it wehen we do the heading of card tours to 
+make the line of heading has the same style like padding
+
+shape-outside
+====================
+works when we use float
+works if we define shape diminsion width and height
+to make words move around the circle like circle
+shape-outside:circle(radius at horizontal vertical)
+shape-outside:circle(50% at 50% 50%)
+=========================================
+{{{websites for free videos cover.co}}}
+object-fit:cover // background-size:cover
+
+-----------------------------------------------------
+
+[form]
+==>
+input::-webkit-input-placeholder{
+    style placeholder here
+}
+input::valid{
+    
+}
+input:focus:invalid{
+    border-bottom:3px solid red
+}
+input:placeholder-shown{
+    style when placeholder shown
+}
+------------------------
+SIBILLING SELECTORS
+-----------------------
+{+}==> adjecent sibiling ==>sibiling that come immidiattely after the element
+{~}==> when found many sibilings
+----------------------------------------------------------
+<div class="parent">
+    <div class="child1"></div>
+    <div class="child2"></div>
+</div>
+.parent{
+    display:table;
+}
+.child1,
+.child2{
+    display:table-cell
+    vertical-align:middle
+}
+hyphens:auto; # ==> make the big word like this bigwo- the rest of word in second lines
+.text{
+    column count:2 #==> make big text in two column
+    column gab: 4rem #==> the distance between 2 columns
+    
+}
+####################################
+    ===> RESPONSIVE <===
+####################################
+DeskTop First
+===>>>>
+*we use @media(max-width){}
+** 0px ==> 600px ==> 900px ==> 1200px ==<infiniti>
+use mixin with @content
+
+Mobile First
+===>>>>
+*we use @media(min-width){}
+==============
+[srcset]
+==>>>>
+## give your browser to choose which img to display high resolution or low
+<img srcset="img/logo-green-1x.png 1x, img/logo-green-2x.png 2x"/>
+[picture]
+===>>>>
+## give us the abllity to put multible source for one img
+## and choose meia query to display the image
+<picture>
+    <source
+    ## here the browser will isplay the actual resolution 
+    ##from two imgs when width:37.5em
+        srcset="
+            img/logo-green-small-1x.png 1x,
+            img/logo-green-small-2x.png 2x
+        "
+        media="(max-with:37.5em)"
+    />
+
+    <img
+        srcset="
+            img/logo-green-1x.png 1x,
+            img/logo-green-2x.png 2x
+        "
+        alt="full logo"
+        class="footer__logo"
+    />
+</picture>
+-----------------------
+<img
+##  225211..1000w 1000px  if browser 1000w will use large img
+    srcset="
+        img/nat-1-large.jpg 1000w,
+        img/nat-1.jpg        300w
+    "
+    sizes="(max-width:900px) 20vw, (max-width:600px) 30vw ,300px"
+    src="img/nat-1-large.jpg"
+    alt="about-image-1"
+    class="composition__photo composition__photo--p1"
+/>
+======================
+RESPONSIVE images in css
+===================
+@media (min-resolution: 192dpi) and (min-width: 37.5em),
+        (-webkit-min-device-pixel-ratio: 2),
+        (min-width: 125em)  {
+#### dpi == display pixel inches
+####-webkit-min-device-pixel-ratio works in safari min-resolution: 192dpi deosn't work in safari 
+#### background image in high resolution if resolution above 192dpi
+    background-image: linear-gradient(
+            to right bottom,
+            rgba($color-primary-light, 0.8),
+            rgba($color-primary-dark, 0.8)
+        ),
+        url("../img/hero.jpg");
+}
+
+==============================
+@supports && backdrop filter
+==============================
+backdrop-filter:blur(10px)# works only in safary
+@supports (-webkit-backdrop-filter: blur(10px)) or
+    (backdrop-filter: blur(10px)) {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background-color: rgba($color-black, 0.3);
+}
+
+/*#####
+useful sites
+1- sizzy.com // to check responsive
+2- caniuse.com // to check new features support
+
+
+
+===================================
+npm install concat --save-dev
+npm install autoprefixer --save-dev
+npm install postcss-cli --save-dev
+
+==================================

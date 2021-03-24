@@ -1,0 +1,42 @@
+/*======================
+    global reset 
+ =====================*/
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    /* to make box-size inheritted*/
+    box-sizing: inherit;
+}
+html {
+    /* 62.5% === 10px from 16px the main root size*/
+    font-size: 62.5%;
+    // laptops 900-1200
+    @include respond(tab-land) {
+        & {
+            font-size: 56.25%; //9.6
+        }
+    }
+    // phone && tablet
+    @include respond(tab-port) {
+        & {
+            font-size: 50%; //8
+        }
+    }
+    @include respond(big-desktop) {
+        & {
+            font-size: 75%; //12
+        }
+    }
+    ::selection {
+        background-color: $color-primary;
+        color: $color-white;
+    }
+}
+
+body {
+    box-sizing: border-box;
+    /* padding: 3rem; */
+    max-width: 100%;
+}
